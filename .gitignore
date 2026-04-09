@@ -1,0 +1,22 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+
+# Local runtime config with secrets
+config.json
+
+# Runtime artifacts
+downloads/
+output/
+logs/
+cache/
+tmp/
+
+# OS/editor files
+.DS_Store
+.vscode/

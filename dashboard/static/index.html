@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MediSync Care Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="bg-shape shape-a"></div>
+  <div class="bg-shape shape-b"></div>
+  <div class="bg-grid"></div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+  <main class="dashboard-shell">
+    <header class="hero panel" data-fx="tilt">
+      <div class="hero-copy">
+        <p class="eyebrow">Care Operations</p>
+        <h1>Medisync</h1>
+        <p class="hero-subtitle">
+          A focused workspace to review patient profiles and order PDFs with speed,
+          clarity, and zero clutter.
+        </p>
+        <div class="hero-meta">
+          <span id="connectionBadge" class="status-pill">Connecting</span>
+          <span id="generatedAt" class="muted">Last update: --</span>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <button id="refreshButton" class="action-button primary" type="button">Refresh View</button>
+        <button id="autoRefreshButton" class="action-button" type="button">Auto Refresh: On</button>
+      </div>
+    </header>
+
+    <section class="kpi-grid">
+      <article class="kpi-card panel" data-fx="tilt">
+        <p class="kpi-label">Patients</p>
+        <p class="kpi-value" id="kpiPatients">0</p>
+      </article>
+      <article class="kpi-card panel" data-fx="tilt">
+        <p class="kpi-label">Orders</p>
+        <p class="kpi-value" id="kpiOrders">0</p>
+      </article>
+      <article class="kpi-card panel" data-fx="tilt">
+        <p class="kpi-label">PDF Files</p>
+        <p class="kpi-value" id="kpiDocuments">0</p>
+      </article>
+      <article class="kpi-card panel" data-fx="tilt">
+        <p class="kpi-label">Latest Activity</p>
+        <p class="kpi-value small" id="kpiLastRun">--</p>
+      </article>
+    </section>
+
+    <section class="controls panel" data-fx="tilt">
+      <div class="control-stack">
+        <label for="searchInput">Find Patient</label>
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Search by patient, MRN, order, physician, or diagnosis"
+          autocomplete="off"
+        />
+      </div>
+      <div class="control-stack">
+        <label for="documentFilter">PDF Availability</label>
+        <select id="documentFilter">
+          <option value="all">All Patients</option>
+          <option value="with-docs">With PDF Files</option>
+          <option value="without-docs">Without PDF Files</option>
+        </select>
+      </div>
+      <div class="control-stack">
+        <label for="sortBy">Sort Patients</label>
+        <select id="sortBy">
+          <option value="name">Patient Name</option>
+          <option value="orders">Most Orders</option>
+          <option value="documents">Most PDF Files</option>
+          <option value="recent">Most Recently Updated</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="letter-strip panel" id="letterStrip"></section>
+
+    <section class="workspace-grid">
+      <article class="panel patient-pane">
+        <div class="pane-header">
+          <h2>Patient List</h2>
+          <span id="filteredSummary" class="muted"></span>
+        </div>
+        <div id="patientList" class="patient-list"></div>
+      </article>
+
+      <article class="panel detail-pane" id="detailPane" data-fx="tilt">
+        <div class="pane-header">
+          <h2>Profile &amp; Files</h2>
+        </div>
+        <div id="patientDetailContent" class="detail-content"></div>
+      </article>
+    </section>
+
+  </main>
+
+  <div id="pdfModal" class="pdf-modal hidden" role="dialog" aria-modal="true" aria-label="Document preview">
+    <div class="pdf-shell">
+      <div class="pdf-toolbar">
+        <h3 id="pdfTitle">PDF Preview</h3>
+        <button id="closePdfModal" class="action-button" type="button">Close</button>
+      </div>
+      <iframe id="pdfFrame" title="PDF Document"></iframe>
+    </div>
+  </div>
+
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

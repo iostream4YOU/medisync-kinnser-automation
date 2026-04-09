@@ -1,0 +1,140 @@
+{
+  "kinnser": {
+    "login_url": "https://kinnser.net/login.cfm",
+    "username": "REPLACE_WITH_KINNSER_USERNAME",
+    "password": "REPLACE_WITH_KINNSER_PASSWORD",
+    "selectors": {
+      "username_input": { "by": "id", "value": "username" },
+      "password_input": { "by": "id", "value": "password" },
+      "login_button": { "by": "id", "value": "login_btn" },
+      "go_to_menu": { "by": "class_name", "value": "menuButton" },
+      "orders_manager_link": {
+        "by": "xpath",
+        "value": "//a[contains(@class,'menuitem') and contains(.,'Orders Manager')]"
+      },
+      "received_tab": {
+        "by": "xpath",
+        "value": "//*[self::a or self::button or self::span][contains(normalize-space(.),'Received')]"
+      },
+      "start_date_input": { "by": "id", "value": "dateRangeStartTab3" },
+      "end_date_input": { "by": "id", "value": "dateRangeEndTab3" },
+      "run_report_button": { "by": "id", "value": "updateTab3" },
+      "export_all_data_button": { "by": "id", "value": "rec-resultsTable_exportExcelTextLink" },
+      "export_button": { "by": "css", "value": "button[type='submit'], input[type='submit']" },
+      "order_rows": { "by": "css", "value": "#tbs-resultsTable tbody tr" },
+      "order_pdf_download_link": { "by": "css", "value": "a[href*='pdf'], a[href*='Download']" }
+    }
+  },
+  "medisync": {
+    "api_base_url": "https://api.medisync.example.com",
+    "api_key": "REPLACE_WITH_MEDISYNC_API_KEY",
+    "sync_enabled": false,
+    "auth_required": false,
+    "auth": {
+      "username": "",
+      "password": ""
+    },
+    "timeout_seconds": 30,
+    "max_retries": 3,
+    "retry_backoff_seconds": 2,
+    "endpoints": {
+      "auth_login": "/auth/login",
+      "patients_list": "/api/patients",
+      "patient_create": "/api/patients",
+      "patient_update": "/api/patients/{id}",
+      "episodes_list": "/api/episodes",
+      "episode_create": "/api/episodes",
+      "orders_list": "/api/orders",
+      "order_create": "/api/orders",
+      "order_update": "/api/orders/{id}",
+      "documents_upload": "/api/documents/upload",
+      "physician_lookup": "/api/physicians/{npi}",
+      "physician_create": "/api/physicians",
+      "sync_run": "/sync/run",
+      "metrics": "/metrics"
+    }
+  },
+  "firestore": {
+    "enabled": false,
+    "mongo_uri": "",
+    "database": "",
+    "agency_name": "MediSync DA",
+    "created_by_email": "medisync-bot@local",
+    "created_by_name": "MediSync Bot",
+    "source_system": "kinnser",
+    "workflow_name": "orders-received-export",
+    "default_order_status": "RECEIVED",
+    "server_selection_timeout_ms": 20000
+  },
+  "dataconnect": {
+    "enabled": false,
+    "project_id": "",
+    "service_id": "",
+    "location": "",
+    "agency_name": "MediSync DA",
+    "agency_id": "",
+    "operations_file": "dataconnect/example/queries.gql"
+  },
+  "dashboard": {
+    "host": "127.0.0.1",
+    "port": 8787,
+    "cache_seconds": 15,
+    "auto_refresh_seconds": 45
+  },
+  "extraction": {
+    "dry_run": false,
+    "headless": false,
+    "workflow_mode": "patient_profiles_then_orders",
+    "clean_download_dir": true,
+    "report_start_date": "01/01/2025",
+    "report_end_date": "today",
+    "results_wait_seconds": 5,
+    "post_login_wait_seconds": 8,
+    "wait_timeout_seconds": 25,
+    "download_wait_seconds": 180,
+    "download_pdfs": true,
+    "max_pdf_download": 0,
+    "pdf_download_pause_seconds": 1,
+    "patient_initials": "AB",
+    "patient_max_per_letter": 0,
+    "patient_letter_pause_seconds": 1,
+    "patient_page_wait_seconds": 2,
+    "patient_orders_wait_seconds": 2,
+    "patient_print_open_wait_seconds": 1.5,
+    "patient_document_types": ["all"],
+    "patient_strict_document_filter": false,
+    "patient_default_document_name": "CMS 485",
+    "order_categories": [],
+    "export_fields": []
+  },
+  "validation": {
+    "required_fields": [
+      "order_number",
+      "patient_name",
+      "mrn",
+      "order_type",
+      "order_date",
+      "physician_name"
+    ],
+    "dedupe_columns": ["Patient Name", "MRN"],
+    "record_dedupe_key": ["order_number", "patient_name", "mrn"]
+  },
+  "npi": {
+    "enabled": true,
+    "api_url": "https://npiregistry.cms.hhs.gov/api",
+    "version": "2.1",
+    "max_results": 20,
+    "timeout_seconds": 20,
+    "max_retries": 3,
+    "retry_backoff_seconds": 2
+  },
+  "processing": {
+    "download_dir": "./downloads",
+    "output_dir": "./output",
+    "log_dir": "./logs",
+    "cache_dir": "./cache",
+    "temp_dir": "./tmp",
+    "preserve_source_columns": true,
+    "dedupe_enabled": false
+  }
+}
